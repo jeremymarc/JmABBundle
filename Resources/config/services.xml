@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="jm_ab.variation_parameter">b</parameter>
+        <parameter key="jm_ab.template.class">Jm\ABBundle\Entity\Template</parameter>
+        <parameter key="jm_ab.templatemanager.class">Jm\ABBundle\Entity\TemplateManager</parameter>
+        <parameter key="twig.loader.class">Twig_Loader_Chain</parameter>
+        <parameter key="twig.loader.filesystem.class">Symfony\Bundle\TwigBundle\Loader\FilesystemLoader</parameter>
+    </parameters>
+
+    <services>
+        <service id="jm_ab.entity_manager" factory-service="doctrine" factory-method="getEntityManager" class="Doctrine\ORM\EntityManager" public="false">
+        </service>
+
+        <service id="jm_ab.template_manager" class="%jm_ab.templatemanager.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument>%jm_ab.template.class%</argument>
+            <argument type="service" id="service_container" />
+        </service>
+
+        <service id="twig.filesystem_loader" class="%twig.loader.filesystem.class%">
+            <argument type="service" id="templating.locator" />
+            <argument type="service" id="templating.name_parser" />
+        </service>
+
+        <service id="jm_ab.template_loader" class="Jm\ABBundle\Twig\TemplateLoader" scope="request">
+            <argument type="service" id="jm_ab.template_manager" />
+            <argument type="service" id="request" />
+            <argument>%jm_ab.variation_parameter%</argument>
+        </service>
+
+        <service id="twig.loader" class="%twig.loader.class%" scope="request">
+            <argument type="collection">
+                <argument type="service" id="jm_ab.template_loader" />
+                <argument type="service" id="twig.filesystem_loader" />
+            </argument>
+        </service>
+    </services>
+</container>
