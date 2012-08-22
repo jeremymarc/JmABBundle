@@ -22,6 +22,10 @@ class JmABExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
+        $container->setParameter('jm_ab.variation', $config['variation']);
+        $container->setParameter('jm_ab.custom_loader', $config['custom_loader']);
+
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
     }

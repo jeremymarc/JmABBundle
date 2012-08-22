@@ -8,12 +8,12 @@
         <parameter key="jm_ab.variation_parameter">b</parameter>
         <parameter key="jm_ab.template.class">Jm\ABBundle\Entity\Template</parameter>
         <parameter key="jm_ab.templatemanager.class">Jm\ABBundle\Entity\TemplateManager</parameter>
-        <parameter key="twig.loader.class">Twig_Loader_Chain</parameter>
+        <parameter key="jm_ab.loader.class">Twig_Loader_Chain</parameter>
         <parameter key="twig.loader.filesystem.class">Symfony\Bundle\TwigBundle\Loader\FilesystemLoader</parameter>
     </parameters>
 
     <services>
-        <service id="jm_ab.entity_manager" factory-service="doctrine" factory-method="getEntityManager" class="Doctrine\ORM\EntityManager" public="false">
+        <service id="jm_ab.entity_manager" factory-service="doctrine" factory-method="getEntityManager" class="Doctrine\ORM\EntityManager" public="true">
         </service>
 
         <service id="jm_ab.template_manager" class="%jm_ab.templatemanager.class%">
@@ -22,21 +22,20 @@
             <argument type="service" id="service_container" />
         </service>
 
-        <service id="twig.filesystem_loader" class="%twig.loader.filesystem.class%">
+        <service id="jm_ab.twig_filesystem_loader" class="%twig.loader.filesystem.class%">
             <argument type="service" id="templating.locator" />
             <argument type="service" id="templating.name_parser" />
         </service>
 
-        <service id="jm_ab.template_loader" class="Jm\ABBundle\Twig\TemplateLoader" scope="request">
+        <service id="jm_ab.template_loader" class="Jm\ABBundle\Twig\TemplateLoader">
             <argument type="service" id="jm_ab.template_manager" />
-            <argument type="service" id="request" />
             <argument>%jm_ab.variation_parameter%</argument>
         </service>
 
-        <service id="twig.loader" class="%twig.loader.class%" scope="request">
+        <service id="jm_ab.twig_loader" class="%jm_ab.loader.class%">
             <argument type="collection">
                 <argument type="service" id="jm_ab.template_loader" />
-                <argument type="service" id="twig.filesystem_loader" />
+                <argument type="service" id="jm_ab.twig_filesystem_loader" />
             </argument>
         </service>
     </services>

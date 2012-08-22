@@ -12,10 +12,10 @@ class TemplateLoader implements \Twig_LoaderInterface
 	private $request;
     private $variationParameter;
 
-    public function __construct(TemplateManager $manager, Request $request, $variationParameter)
+    public function __construct(TemplateManager $manager, $variationParameter)
     {
 		$this->manager = $manager;
-        $this->request = $request;
+        $this->request = Request::createFromGlobals();
         $this->variationParameter = $variationParameter;
 	}
 

@@ -214,4 +214,9 @@ class Template
     {
         return $this->updateTime;
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

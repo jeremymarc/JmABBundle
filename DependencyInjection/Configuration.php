@@ -21,7 +21,8 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('jm_ab');
 
 		$rootNode->children()
-			->scalarNode('variation')->isRequired()->end()
+			->scalarNode('variation')->defaultValue('b')->end()
+            ->scalarNode('custom_loader')->defaultValue(true)->end()
 		;
 
         return $treeBuilder;
