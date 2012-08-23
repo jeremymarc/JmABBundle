@@ -8,16 +8,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TemplateLoader implements \Twig_LoaderInterface
 {
-	private $manager;
-	private $request;
+    private $manager;
+    private $request;
     private $variationParameter;
 
     public function __construct(TemplateManager $manager, $variationParameter)
     {
-		$this->manager = $manager;
-		$this->request = Request::createFromGlobals();
-		$this->variationParameter = $variationParameter;
-	}
+        $this->manager = $manager;
+        $this->request = Request::createFromGlobals();
+        $this->variationParameter = $variationParameter;
+    }
 
     /**
      * Gets the source code of a template, given its name.
@@ -30,11 +30,11 @@ class TemplateLoader implements \Twig_LoaderInterface
      */
     public function getSource($name)
     {
-		$name = $this->parse($name);
-		$template = $this->getTemplate($name);
-		$source = $this->getTemplateVariation($template);
+        $name = $this->parse($name);
+        $template = $this->getTemplate($name);
+        $source = $this->getTemplateVariation($template);
 
-		return $source;
+        return $source;
     }
 
     /**
@@ -52,13 +52,13 @@ class TemplateLoader implements \Twig_LoaderInterface
         $template = $this->getTemplate($name);
 
         return
-			__CLASS__
-			. '#' . $name
-			. '#' . $this->request->get($this->variationParameter) === null ? 'A' : 'B'
-			// force reload even if Twig has autoReload to false
-			. '#' . $template->getUpdateTime()->getTimestamp()
-			;
-	}
+            __CLASS__
+            . '#' . $name
+            . '#' . $this->request->get($this->variationParameter) === null ? 'A' : 'B'
+            // force reload even if Twig has autoReload to false
+            . '#' . $template->getUpdateTime()->getTimestamp()
+            ;
+    }
 
     /**
      * Returns true if the template is still fresh.
@@ -72,44 +72,49 @@ class TemplateLoader implements \Twig_LoaderInterface
      */
     public function isFresh($name, $time)
     {
-		return false;
+        return false;
 
         //$name = $this->parse($name);
         //$template = $this->getTemplate($name);
 
         //return $template->getUpdateTime()->getTimestamp() <= $time;
-	}
+    }
 
     private function canHandle($name)
     {
-		return 0 === strpos($name, 'template:');
-	}
+        return 0 === strpos($name, 'template:');
+    }
 
-	private function parse($name)
-	{
-		if (!preg_match('#^template:(.*)$#', $name, $m)) {
-			throw new \Twig_Error_Loader(sprintf("Unable to find template %s", $name));
-		}
+    private function parse($name)
+    {
+        if (!preg_match('#^template:(.*)$#', $name, $m)) {
+            throw new \Twig_Error_Loader(sprintf("Unable to find template %s", $name));
+        }
 
-		return $m[1];
-	}
+        return $m[1];
+    }
 
-	private function getTemplate($name)
-	{
-		if (!$template = $this->manager->getTemplate($name)) {
-			throw new \Twig_Error_Loader(sprintf("Unable to find template %s", $name));
-		}
+    private function getTemplate($name)
+    {
+        if (!$template = $this->manager->getTemplate($name)) {
+            throw new \Twig_Error_Loader(sprintf("Unable to find template %s", $name));
+        }
 
-		return $template;
-	}
+        return $template;
+    }
 
-	private function getTemplateVariation(Template $template)
-	{
-		$content = $template->getBody();
-		if (null !== $this->request->get($this->variationParameter)) {
-			$content = $template->getVariationBody();
-		}
+    private function getTemplateVariation(Template $template)
+    {
+        $content = $template->getBody();
+        if (null !== $this->request->get($this->variationParameter) && $this->isValidBody($template->getVariationBody())) {
+            $content = $template->getVariationBody();
+        }
 
-		return $content;
-	}
+        return $content;
+    }
+
+    private function isValidBody($body)
+    {
+        return $body !== null && strlen(trim($template->getVariationBody())) > 1;
+    }
 }
