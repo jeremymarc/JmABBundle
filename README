@@ -1,58 +1,31 @@
-Getting started with JmABBundle
-===============================
+JmABBundle
+==========
 
-The symfony2 ABBundle provide an easy way to manage application templates which can be used for AB Testing (or not).
+The symfony2 ABBundle provide an easy way to manage application templates which
+can be used for AB Testing (or not).
 
+Features include:
 
-## Installation
+- Manage Template
+- Load Template from DB using Twig Loader
+- Use a custom variation parameter to switch between the 2 versions (A/B) of one template
 
-### Step 1: Download JmABBundle using composer
+Documentation
+-------------
 
-Add JmABBundle in your composer.json:
+The bulk of the documentation is stored in the `Resources/doc/index.md`
+file in this bundle:
 
-```js
-{
-    "require": {
-        "jm/ab-bundle": "*"
-    }
-}
-```
+[Read the Documentation for master](https://github.com/jeremymarc/JmABBundle/blob/master/Resources/doc/index.md)
 
-Now tell composer to download the bundle by running the command:
+Installation
+------------
 
-``` bash
-$ php composer.phar update jm/ab-bundle
-```
-
-Composer will install the bundle to your project's `vendor/jm` directory.
+All the installation instructions are located in [documentation](https://github.com/jeremymarc/JmABBundle/blob/master/Resources/doc/index.md).
 
 
-### Step 2: Enable the bundle
-public function registerBundles()
-{
-    $bundles = array(
-        // ...
-        new Jm\ABBundle(),
-    );
-}
-```
+Reporting an issue or a feature request
+---------------------------------------
 
-### Step 3: Configuration
+Issues and feature requests are tracked in the [Github issue tracker](https://github.com/jeremymarc/JmABBundle/issues).
 
-Configure the bundle using the dic configuration file
-jm_ab:
-    custom_loader: true
-    variation: b
-
-custom_loader:
-(default value true)
-Allow the bundle to override the default twig loader (FileSystemLoader) to use Twig_Loader_Chain to chain our custom Twig Loader (TemplateLoader) and FileSystemLoader.
-If the template is not found in the DB, it will look for it using the FileSystemLoader.
-You can disable the loader with custom_loader: false
-
-variation:
-(default value b)
-This is the default value for the variation (version B) of the page. To switch from one version to another one, just use the variation parameter in the url :
-http://url.com/?variation_parameter -> http://url.com/?b
-
-That's it.
