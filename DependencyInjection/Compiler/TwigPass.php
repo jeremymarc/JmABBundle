@@ -9,12 +9,10 @@ class TwigPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        $twig = $container->getDefinition('twig');
         $abTwigLoader = $container->getDefinition('jm_ab.twig_loader');
 
         if (true === $container->getParameter('jm_ab.custom_loader')) {
-            $abTwigLoader->replaceArgument(0, $twig);
-            $container->setDefinition('twig', $abTwigLoader);
+            $container->setDefinition('twig.loader', $abTwigLoader);
         }
     }
 }
