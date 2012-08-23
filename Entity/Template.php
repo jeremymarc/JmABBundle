@@ -10,6 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="template")
  * @ORM\Entity(repositoryClass="Jm\ABBundle\Entity\TemplateRepository")
+ * @HasLifecycleCallbacks
  */
 class Template
 {
