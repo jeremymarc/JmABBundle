@@ -28,6 +28,7 @@ Composer will install the bundle to your project's `vendor/jm` directory.
 
 
 ### Step 2: Enable the bundle
+```php
 public function registerBundles()
 {
     $bundles = array(
@@ -40,9 +41,11 @@ public function registerBundles()
 ### Step 3: Configuration
 
 Configure the bundle using the dic configuration file
+```php
 jm_ab:
     custom_loader: true
     variation: b
+```
 
 custom_loader:
 (default value true)
