@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="template")
  * @ORM\Entity(repositoryClass="Jm\ABBundle\Entity\TemplateRepository")
- * @HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks
  */
 class Template
 {
@@ -215,7 +215,7 @@ class Template
 	}
 
 	/**
-	 * @PrePersist
+	 * @ORM\PrePersist
 	 */
 	public function beforePersist()
 	{
@@ -224,7 +224,7 @@ class Template
 	}
 
 	/**
-	 * @PreUpdate
+	 * @ORM\PreUpdate
 	 */
 	public function beforeUpdate()
 	{
