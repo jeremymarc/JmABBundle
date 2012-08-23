@@ -49,14 +49,15 @@ class TemplateLoader implements \Twig_LoaderInterface
     public function getCacheKey($fullName)
     {
         $name = $this->parse($fullName);
-
         $template = $this->getTemplate($name);
 
         return
             __CLASS__
-            . '#' . $fullName
+            . '#' . $name
+			. '#' . $this->request->get($this->variationParameter) === null ? 'A' : 'B'
             // force reload even if Twig has autoReload to false
-            . '#' . $template->getUpdateTime()->getTimestamp();
+			. '#' . $template->getUpdateTime()->getTimestamp()
+			;
 	}
 
     /**
@@ -72,7 +73,6 @@ class TemplateLoader implements \Twig_LoaderInterface
     public function isFresh($name, $time)
     {
         $name = $this->parse($name);
-
         $template = $this->getTemplate($name);
 
         return $template->getUpdateTime()->getTimestamp() <= $time;
