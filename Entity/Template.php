@@ -44,13 +44,6 @@ class Template
 	private $variationBody;
 
 	/**
-	 * @var boolean $enabled
-	 *
-	 * @ORM\Column(name="enabled", type="boolean")
-	 */
-	private $enabled;
-
-	/**
 	 * @var \DateTime $updateTime
 	 *
 	 * @ORM\Column(name="updateTime", type="datetime", nullable=true)
@@ -118,29 +111,6 @@ class Template
 	public function getBody()
 	{
 		return $this->body;
-	}
-
-	/**
-	 * Set enabled
-	 *
-	 * @param boolean $enabled
-	 * @return Page
-	 */
-	public function setEnabled($enabled)
-	{
-		$this->enabled = $enabled;
-
-		return $this;
-	}
-
-	/**
-	 * Get enabled
-	 *
-	 * @return boolean
-	 */
-	public function getEnabled()
-	{
-		return $this->enabled;
 	}
 
 	/**
