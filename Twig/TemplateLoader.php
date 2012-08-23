@@ -15,8 +15,8 @@ class TemplateLoader implements \Twig_LoaderInterface
     public function __construct(TemplateManager $manager, $variationParameter)
     {
 		$this->manager = $manager;
-        $this->request = Request::createFromGlobals();
-        $this->variationParameter = $variationParameter;
+		$this->request = Request::createFromGlobals();
+		$this->variationParameter = $variationParameter;
 	}
 
     /**
@@ -30,11 +30,11 @@ class TemplateLoader implements \Twig_LoaderInterface
      */
     public function getSource($name)
     {
-        $name = $this->parse($name);
-        $template = $this->getTemplate($name);
-        $source = $this->getTemplateVariation($template);
+		$name = $this->parse($name);
+		$template = $this->getTemplate($name);
+		$source = $this->getTemplateVariation($template);
 
-        return $source;
+		return $source;
     }
 
     /**
@@ -52,10 +52,10 @@ class TemplateLoader implements \Twig_LoaderInterface
         $template = $this->getTemplate($name);
 
         return
-            __CLASS__
-            . '#' . $name
+			__CLASS__
+			. '#' . $name
 			. '#' . $this->request->get($this->variationParameter) === null ? 'A' : 'B'
-            // force reload even if Twig has autoReload to false
+			// force reload even if Twig has autoReload to false
 			. '#' . $template->getUpdateTime()->getTimestamp()
 			;
 	}
@@ -72,15 +72,17 @@ class TemplateLoader implements \Twig_LoaderInterface
      */
     public function isFresh($name, $time)
     {
-        $name = $this->parse($name);
-        $template = $this->getTemplate($name);
+		return false;
 
-        return $template->getUpdateTime()->getTimestamp() <= $time;
+        //$name = $this->parse($name);
+        //$template = $this->getTemplate($name);
+
+        //return $template->getUpdateTime()->getTimestamp() <= $time;
 	}
 
     private function canHandle($name)
     {
-        return 0 === strpos($name, 'template:');
+		return 0 === strpos($name, 'template:');
 	}
 
 	private function parse($name)
