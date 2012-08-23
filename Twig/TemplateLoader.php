@@ -110,6 +110,10 @@ class TemplateLoader implements \Twig_LoaderInterface
             $content = $template->getVariationBody();
         }
 
+        if ($template->getExperimentCode()) {
+            $content = str_replace('{{GAexperimentScript}}', $template->getAnalyticsScript(), $content);
+        }
+
         return $content;
     }
 
