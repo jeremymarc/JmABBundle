@@ -13,9 +13,6 @@
     </parameters>
 
     <services>
-        <service id="jm_ab.entity_manager" factory-service="doctrine" factory-method="getEntityManager" class="Doctrine\ORM\EntityManager" public="true">
-        </service>
-
         <service id="jm_ab.template_manager" class="%jm_ab.templatemanager.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%jm_ab.template.class%</argument>
@@ -37,6 +34,13 @@
                 <argument type="service" id="jm_ab.template_loader" />
                 <argument type="service" id="jm_ab.twig_filesystem_loader" />
             </argument>
+        </service>
+
+        <service id="jm_ab.template_admin" class="Jm\ABBundle\Admin\TemplateAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Site" label="Templates" />
+            <argument />
+            <argument>Jm\ABBundle\Entity\Template</argument>
+            <argument>JmABBundle:TemplateAdmin</argument>
         </service>
     </services>
 </container>
