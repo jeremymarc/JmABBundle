@@ -110,8 +110,9 @@ class TemplateLoader implements \Twig_LoaderInterface
             $content = $template->getVariationBody();
         }
 
+        //replace {{GAexperimentScript}} by the GA script
         if ($template->getExperimentCode()) {
-            $content = str_replace('{{GAexperimentScript}}', $template->getAnalyticsScript(), $content);
+            $content = preg_replace('/{{( )?GAexperimentScript( )?}}/', $template->getAnalyticsScript(), $content);
         }
 
         return $content;
@@ -119,6 +120,6 @@ class TemplateLoader implements \Twig_LoaderInterface
 
     private function isValidBody($body)
     {
-        return $body !== null && strlen(trim($template->getVariationBody())) > 1;
+        return $body !== null && strlen(trim($body)) > 1;
     }
 }
