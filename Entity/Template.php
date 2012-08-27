@@ -205,7 +205,7 @@ class Template
      *
      * @return \DateTime
      */
-    public function getUpdatedAt)
+    public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
