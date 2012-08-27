@@ -56,7 +56,7 @@ class TemplateLoader implements \Twig_LoaderInterface
             . '#' . $name
             . '#' . $this->request->get($this->variationParameter) === null ? 'A' : 'B'
             // force reload even if Twig has autoReload to false
-            . '#' . $template->getUpdateTime()->getTimestamp()
+            . '#' . $template->getUpdatedAt()->getTimestamp()
             ;
     }
 
@@ -77,7 +77,7 @@ class TemplateLoader implements \Twig_LoaderInterface
         //$name = $this->parse($name);
         //$template = $this->getTemplate($name);
 
-        //return $template->getUpdateTime()->getTimestamp() <= $time;
+        //return $template->getUpdatedAt()->getTimestamp() <= $time;
     }
 
     private function canHandle($name)

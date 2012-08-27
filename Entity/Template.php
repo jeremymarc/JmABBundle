@@ -55,18 +55,18 @@ class Template
     private $experimentCode;
 
     /**
-     * @var \DateTime $updateTime
+     * @var \DateTime $updatedAt
      *
-     * @ORM\Column(name="updateTime", type="datetime", nullable=true)
+     * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
-    private $updateTime;
+    private $updatedAt;
 
     /**
-     * @var \DateTime $creationTime
+     * @var \DateTime $createdAt
      *
-     * @ORM\Column(name="creationTime", type="datetime")
+     * @ORM\Column(name="createdAt", type="datetime")
      */
-    private $creationTime;
+    private $createdAt;
 
     /**
      * Get id
@@ -165,49 +165,49 @@ class Template
     }
 
     /**
-     * Set creationTime
+     * Set createdAt
      *
-     * @param \DateTime $creationTime
-     * @return Page
+     * @param \DateTime $createdAt
+     * @return DateTime
      */
-    public function setCreationTime($creationTime)
+    public function setCreatedAt($createdAt)
     {
-        $this->creationTime = $creationTime;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     /**
-     * Get creationTime
+     * Get creationAt
      *
      * @return \DateTime
      */
-    public function getCreationTime()
+    public function getCreatedAt()
     {
-        return $this->creationTime;
+        return $this->createdAt;
     }
 
     /**
-     * Set updateTime
+     * Set updatedAt
      *
-     * @param \DateTime $updateTime
-     * @return Page
+     * @param \DateTime $updatedAt
+     * @return DateTime
      */
-    public function setUpdateTime($updateTime)
+    public function setUpdatedAt($updatedAt)
     {
-        $this->updateTime = $updateTime;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
     /**
-     * Get updateTime
+     * Get updatedAt
      *
      * @return \DateTime
      */
-    public function getUpdateTime()
+    public function getUpdatedAt)
     {
-        return $this->updateTime;
+        return $this->updatedAt;
     }
 
     public function __toString()
@@ -220,8 +220,8 @@ class Template
      */
     public function beforePersist()
     {
-        $this->setCreationTime(new \DateTime());
-        $this->setUpdateTime(new \DateTime());
+        $this->setCreatedAt(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }
 
     /**
@@ -229,7 +229,7 @@ class Template
      */
     public function beforeUpdate()
     {
-        $this->setUpdateTime(new \DateTime());
+        $this->setUpdatedAt(new \DateTime());
     }
 
     public function getAnalyticsScript()
