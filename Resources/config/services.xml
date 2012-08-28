@@ -19,11 +19,6 @@
             <argument type="service" id="service_container" />
         </service>
 
-        <service id="jm_ab.twig_filesystem_loader" class="%twig.loader.filesystem.class%">
-            <argument type="service" id="templating.locator" />
-            <argument type="service" id="templating.name_parser" />
-        </service>
-
         <service id="jm_ab.template_loader" class="Jm\ABBundle\Twig\TemplateLoader">
             <argument type="service" id="jm_ab.template_manager" />
             <argument>%jm_ab.variation_parameter%</argument>
@@ -32,7 +27,6 @@
         <service id="jm_ab.twig_loader" class="%jm_ab.loader.class%">
             <argument type="collection">
                 <argument type="service" id="jm_ab.template_loader" />
-                <argument type="service" id="jm_ab.twig_filesystem_loader" />
             </argument>
         </service>
 
