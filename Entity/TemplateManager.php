@@ -41,11 +41,14 @@ class TemplateManager
         return $this->repository->findOneBy(array('name' => $name));
     }
 
-	public function renderTemplate($templateName, $vars)
-	{
-        if (0 === strpos($templateName, 'template:')) {
-            $name = "template:$templateName";
+    public function renderTemplate($templateName, $vars = null)
+    {
+        if (!$vars) {
+            $vars = array();
         }
-		return $this->container->get('twig.loader')->render($templateName, $vars);
-	}
+        if (0 !== strpos($templateName, 'template:')) {
+            $templateName = "template:$templateName";
+        }
+        return $this->container->get('twig')->render($templateName, $vars);
+    }
 }

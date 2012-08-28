@@ -66,3 +66,8 @@ just insert the {{ GAexperimentScript }} variable in the template. It
 will be automatically replaced by the javascript with the Template
 experiment code.
 
+You can load a Template from a controller using TemplateManager :
+$this->get('jm_ab.template_manager')->renderTemplate('name') or ;
+$this->get('jm_ab.template_manager')->renderTemplate('template:name',
+$vars);
+Note that 'template:' and $vars are optionals.
