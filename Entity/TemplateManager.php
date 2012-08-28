@@ -43,7 +43,7 @@ class TemplateManager
 
 	public function renderTemplate($templateName, $vars)
 	{
-        if (0 === strpos($name, 'template:')) {
+        if (0 === strpos($templateName, 'template:')) {
             $name = "template:$templateName";
         }
 		return $this->container->get('twig.loader')->render($templateName, $vars);
