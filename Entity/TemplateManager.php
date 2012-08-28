@@ -11,15 +11,15 @@ class TemplateManager
     protected $em;
     protected $class;
     protected $repository;
-    //protected $twig;
+    protected $container;
     protected $cache;
 
-	public function __construct(EntityManager $em, $class)
+	public function __construct(EntityManager $em, $class, ContainerInterface $container)
 	{
 		$this->em         = $em;
 		$this->repository = $em->getRepository($class);
 		$this->class      = $class;
-        //$this->twig       = $twig;
+        $this->container  = $container;
 
 		$this->cache      = array();
     }
@@ -46,6 +46,6 @@ class TemplateManager
         if (0 === strpos($name, 'template:')) {
             $name = "template:$templateName";
         }
-		//return $this->twig->render($templateName, $vars);
+		return $this->container->get('twig.loader')->render($templateName, $vars);
 	}
 }
