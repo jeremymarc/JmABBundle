@@ -30,19 +30,8 @@ class JmABExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        //TODO: should I move it to Twig Pass ?
         if (class_exists("Sonata\AdminBundle\Admin\Admin")) {
-            $sonataAdmin = new Definition("Jm\ABBundle\Admin\TemplateAdmin", array(
-                null,
-                "Jm\ABBundle\Entity\Template",
-                "JmABBundle:TemplateAdmin",
-            ));
-            $sonataAdmin->addTag("sonata.admin", array(
-                'manager_type' => 'orm',
-                'group'        => 'Site',
-                'label'        => 'Templates',
-            ));
-            $container->setDefinition('jm_ab.template_admin', $sonataAdmin);
+            $loader->load('sonata.xml');
         }
     }
 }
