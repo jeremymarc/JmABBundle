@@ -41,11 +41,8 @@ class TemplateManager
         return $this->repository->findOneBy(array('name' => $name));
     }
 
-    public function renderTemplate($templateName, $vars = null)
+    public function renderTemplate($templateName, $vars = array())
     {
-        if (!$vars) {
-            $vars = array();
-        }
         if (0 !== strpos($templateName, 'template:')) {
             $templateName = "template:$templateName";
         }
