@@ -33,7 +33,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Jm\ABBundle(),
+        new Jm\ABBundle\JmABBundle(),
     );
 }
 ```
