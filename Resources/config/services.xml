@@ -19,8 +19,7 @@
         </service>
 
         <service id="jm_ab.template_loader" class="Jm\ABBundle\Twig\TemplateLoader">
-            <argument type="service" id="jm_ab.template_manager" />
-            <argument>%jm_ab.variation_parameter%</argument>
+            <argument type="service" id="service_container" />
         </service>
 
         <service id="jm_ab.twig_loader" class="%jm_ab.loader.class%">
