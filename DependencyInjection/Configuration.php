@@ -20,10 +20,11 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('jm_ab');
 
-		$rootNode->children()
-			->scalarNode('variation')->defaultValue('b')->end()
+        $rootNode->children()
+            ->scalarNode('variation')->defaultValue('b')->end()
             ->scalarNode('custom_loader')->defaultValue(true)->end()
-		;
+            ->scalarNode('cache_time')->defaultValue(3600)->end()
+            ;
 
         return $treeBuilder;
     }

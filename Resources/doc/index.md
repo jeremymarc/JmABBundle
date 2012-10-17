@@ -45,6 +45,7 @@ Configure the bundle using the dic configuration file
 jm_ab:
     custom_loader: true
     variation: b
+    cache_time: 3600
 ```
 
 custom_loader:

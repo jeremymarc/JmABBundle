@@ -3,6 +3,7 @@
 namespace Jm\ABBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
 
 /**
  * PageRepository
@@ -12,4 +13,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class TemplateRepository extends EntityRepository
 {
+	public function findTemplateByName($name, $cacheTime)
+	{
+		try {
+			$query = $this->createQueryBuilder('t')
+				->where('t.name = :name')
+				->setParameter('name', $name)
+				->getQuery()
+				->useResultCache(true, $cacheTime)
+				;
+
+			$template = $query->getSingleResult();
+		} catch (NoResultException $e) {
+			$template = null;
+		}
+
+		return $template;
+	}
 }
