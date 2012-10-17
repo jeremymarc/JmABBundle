@@ -4,19 +4,18 @@ namespace Jm\ABBundle\Twig;
 
 use Jm\ABBundle\Entity\Template;
 use Jm\ABBundle\Entity\TemplateManager;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class TemplateLoader implements \Twig_LoaderInterface
 {
-    private $manager;
-    private $request;
-    private $variationParameter;
-
-    public function __construct(TemplateManager $manager, $variationParameter)
+    /**
+     * @var ContainerInterface
+     */
+    private $container; 
+    
+    public function __construct(ContainerInterface $container)
     {
-        $this->manager = $manager;
-        $this->request = Request::createFromGlobals();
-        $this->variationParameter = $variationParameter;
+        $this->container = $container;
     }
 
     /**
@@ -54,7 +53,7 @@ class TemplateLoader implements \Twig_LoaderInterface
         return
             __CLASS__
             . '#' . $name
-            . '#' . $this->request->get($this->variationParameter) === null ? 'A' : 'B'
+            . '#' . $this->container->get('request')->get($this->container->getParameter('jm_ab.variation_parameter')) === null ? 'A' : 'B'
             // force reload even if Twig has autoReload to false
             . '#' . $template->getUpdatedAt()->getTimestamp()
             ;
@@ -96,7 +95,7 @@ class TemplateLoader implements \Twig_LoaderInterface
 
     private function getTemplate($name)
     {
-        if (!$template = $this->manager->getTemplate($name)) {
+        if (!$template = $this->container->get('jm_ab.template_manager')->getTemplate($name)) {
             throw new \Twig_Error_Loader(sprintf("Unable to find template %s", $name));
         }
 
@@ -106,7 +105,7 @@ class TemplateLoader implements \Twig_LoaderInterface
     private function getTemplateVariation(Template $template)
     {
         $content = $template->getBody();
-        if (null !== $this->request->get($this->variationParameter) && $this->isValidBody($template->getVariationBody())) {
+        if (null !== $this->container->get('request')->get($this->container->getParameter('jm_ab.variation_parameter')) && $this->isValidBody($template->getVariationBody())) {
             $content = $template->getVariationBody();
         }
 
