@@ -69,6 +69,11 @@ class Template
     private $createdAt;
 
     /**
+     * @var boolean $isVariation
+     */
+    private $variation;
+
+    /**
      * Get id
      *
      * @return integer
@@ -165,6 +170,25 @@ class Template
     }
 
     /**
+     * Get variation
+     *
+     * @return true|false
+     */
+    public function isVariation()
+    {
+        return $this->variation;
+    }
+
+    /**
+     * Set variation (boolean)
+     * @param variation the value to set true|false
+     */
+    public function setVariation($variation)
+    {
+        $this->variation = $variation;
+    }
+
+    /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
@@ -232,8 +256,21 @@ class Template
         $this->setUpdatedAt(new \DateTime());
     }
 
+    /**
+     * Return the body|variationBody according to isVariation
+     */
+    public function getContent()
+    {
+        return $this->isVariation() && $this->isValidBody($this->getVariationBody()) ? 
+            $this->getVariationBody() : $this->getBody();
+    }
+
     public function getAnalyticsScript()
     {
+        if (null === $this->getExperimentCode() || strlen($this->getExperimenteCode) < 5) {
+            return;
+        }
+
         $template = <<<EOF
 <!-- Google Analytics Content Experiment code -->
 <script>function utmx_section(){}function utmx(){}(function(){var
@@ -251,5 +288,10 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
 <!-- End of Google Analytics Content Experiment code -->
 EOF;
         return str_replace('%EXPERIMENT_CODE%', $this->getExperimentCode(), $template);
+    }
+
+    protected function isValidBody($body)
+    {
+        return (null !== $body && strlen(trim($body)) > 0);
     }
 }
