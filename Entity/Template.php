@@ -69,11 +69,6 @@ class Template
     private $createdAt;
 
     /**
-     * @var boolean $isVariation
-     */
-    private $variation;
-
-    /**
      * Get id
      *
      * @return integer
@@ -170,25 +165,6 @@ class Template
     }
 
     /**
-     * Get variation
-     *
-     * @return true|false
-     */
-    public function isVariation()
-    {
-        return $this->variation;
-    }
-
-    /**
-     * Set variation (boolean)
-     * @param variation the value to set true|false
-     */
-    public function setVariation($variation)
-    {
-        $this->variation = $variation;
-    }
-
-    /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
@@ -256,18 +232,9 @@ class Template
         $this->setUpdatedAt(new \DateTime());
     }
 
-    /**
-     * Return the body|variationBody according to isVariation
-     */
-    public function getContent()
-    {
-        return $this->isVariation() && $this->isValidBody($this->getVariationBody()) ? 
-            $this->getVariationBody() : $this->getBody();
-    }
-
     public function getAnalyticsScript()
     {
-        if (null === $this->getExperimentCode() || strlen($this->getExperimenteCode) < 5) {
+        if (null === $this->getExperimentCode() || strlen($this->getExperimentCode()) < 5) {
             return;
         }
 

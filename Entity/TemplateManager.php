@@ -38,24 +38,20 @@ class TemplateManager
         return $this->cache[$name] = $template;
     }
 
-    public function findTemplateByName($name)
-    {
-        $template = $this->repository->findTemplateByName($name, $this->cacheTime);
-
-        //todo: duplicate with TemplateLoader
-        if (null !== $this->container->get('request')->get($this->container->getParameter('jm_ab.variation_parameter'))) {
-            $template->setVariation(true);
-        }
-
-        return $template;
-
-    }
-
     public function renderTemplate($templateName, $vars = array())
     {
         if (0 !== strpos($templateName, 'template:')) {
             $templateName = "template:$templateName";
         }
         return $this->container->get('twig')->render($templateName, $vars);
+    }
+
+    /*
+     * Do not call findTemplateByName directly
+     * Use getTemplate instead as it's adding a cache support
+     */
+    protected function findTemplateByName($name)
+    {
+        return $this->repository->findTemplateByName($name, $this->cacheTime);
     }
 }
