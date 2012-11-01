@@ -50,9 +50,9 @@ jm_ab:
 
 custom_loader:
 (default value true)
-Allow the bundle to override the default twig loader (FileSystemLoader) to use
-Twig_Loader_Chain to chain our custom Twig Loader (TemplateLoader) and FileSystemLoader.
-If the template is not found in the DB, it will look for it using the FileSystemLoader.
+Allow the bundle to chain our custom Twig loader to the current loader
+(Twig_Loader_Chain). When enable, you can render a template using twig, doing
+like this : $this->get('twig')->render('template:name');
 You can disable the loader with custom_loader: false
 
 variation:
@@ -62,13 +62,18 @@ To switch from one version to another one, just use the variation parameter in t
 http://url.com/?variation_parameter -> http://url.com/?b
 
 
-If you want to insert the Google Analytics Content Experiment script,
-just insert the {{ GAexperimentScript }} variable in the template. It
-will be automatically replaced by the javascript with the Template
-experiment code.
+If you want to insert the Google Analytics Content Experiment script (for AB
+Testing), just insert the {{ GAexperimentScript }} variable in the template.
+It will be automatically replaced by the GA JavaScripts (only if you have
+specified the experiment code in the Template).
 
 You can load a Template from a controller using TemplateManager :
 $this->get('jm_ab.template_manager')->renderTemplate('name') or ;
 $this->get('jm_ab.template_manager')->renderTemplate('template:name',
 $vars);
 Note that 'template:' and $vars are optionals.
+
+
+NOTE : if you are using SonataAdminBundle, the Bundle is coming with the
+configuration files to manage your Templates.
+
