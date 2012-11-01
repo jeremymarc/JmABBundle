@@ -48,8 +48,7 @@ jm_ab:
     cache_time: 3600
 ```
 
-custom_loader:
-(default value true)
+##### custom_loader: (default value true)
 Allow the bundle to chain our custom Twig loader to the current loader
 (Twig_Loader_Chain). When enable, you can render a template using twig, doing :
 ```php
@@ -57,8 +56,7 @@ $this->get('twig')->render('template:name');
 ```
 You can disable the loader with custom_loader: false
 
-variation:
-(default value b)
+##### variation: (default value b)
 This is the default value for the variation (version B) of the page.
 To switch from one version to another one, just use the variation parameter in the url :
 ```html
@@ -77,6 +75,12 @@ $this->get('jm_ab.template_manager')->renderTemplate('template:name',
 $vars);
 ```
 Note that 'template:' and $vars are optionals.
+
+##### cache_time (default value 3600 / 1h)
+
+Value of the cache for Doctrine Result Cache. Default value is 1 hour.
+When the doctrine cache is reset, the twig template will be automatically 
+refresh (it's based on the Template's updatedAt value).
 
 ### Step 4 : Admin Generator
 
