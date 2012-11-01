@@ -51,16 +51,19 @@ jm_ab:
 custom_loader:
 (default value true)
 Allow the bundle to chain our custom Twig loader to the current loader
-(Twig_Loader_Chain). When enable, you can render a template using twig, doing
-like this : $this->get('twig')->render('template:name');
+(Twig_Loader_Chain). When enable, you can render a template using twig, doing :
+```php
+$this->get('twig')->render('template:name');
+```
 You can disable the loader with custom_loader: false
 
 variation:
 (default value b)
 This is the default value for the variation (version B) of the page.
 To switch from one version to another one, just use the variation parameter in the url :
+```html
 http://url.com/?variation_parameter -> http://url.com/?b
-
+```
 
 If you want to insert the Google Analytics Content Experiment script (for AB
 Testing), just insert the {{ GAexperimentScript }} variable in the template.
@@ -68,12 +71,15 @@ It will be automatically replaced by the GA JavaScripts (only if you have
 specified the experiment code in the Template).
 
 You can load a Template from a controller using TemplateManager :
+```php
 $this->get('jm_ab.template_manager')->renderTemplate('name') or ;
 $this->get('jm_ab.template_manager')->renderTemplate('template:name',
 $vars);
+```
 Note that 'template:' and $vars are optionals.
 
+### Step 4 : Admin Generator
 
-NOTE : if you are using SonataAdminBundle, the Bundle is coming with the
-configuration files to manage your Templates.
+If you are using SonataAdminBundle, the Bundle is coming with the configuration files 
+to manage your Templates.
 
