@@ -54,6 +54,11 @@ Allow the bundle to chain our custom Twig loader to the current loader
 ```php
 $this->get('twig')->render('template:name');
 ```
+Or in a twig template :
+```php
+- include "template:name"|raw
+```
+
 You can disable the loader with custom_loader: false
 
 ##### variation: (default value b)
