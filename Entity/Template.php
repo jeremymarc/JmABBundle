@@ -9,7 +9,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Jm\ABBundle\Entity\Template
  *
  * @ORM\Table(
- *  name="template",
  *  indexes={@ORM\Index(name="name", columns={"name"})}
  * )
  * @ORM\Entity(repositoryClass="Jm\ABBundle\Entity\TemplateRepository")
