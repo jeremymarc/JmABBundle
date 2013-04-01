@@ -87,8 +87,3 @@ Value of the cache for Doctrine Result Cache. Default value is 1 hour.
 When the doctrine cache is reset, the twig template will be automatically 
 refresh (it's based on the Template's updatedAt value).
 
-### Step 4 : Admin Generator
-
-If you are using SonataAdminBundle, the Bundle is coming with the configuration files 
-to manage your Templates.
-
