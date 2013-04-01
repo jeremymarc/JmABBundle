@@ -16,7 +16,7 @@
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument>%jm_ab.template.class%</argument>
             <argument type="service" id="service_container" />
-			<argument>%jm_ab.cache_time%</argument>
+            <argument>%jm_ab.cache_time%</argument>
         </service>
 
         <service id="jm_ab.template_loader" class="Jm\ABBundle\Twig\TemplateLoader">
