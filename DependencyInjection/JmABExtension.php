@@ -27,12 +27,7 @@ class JmABExtension extends Extension
         $container->setParameter('jm_ab.custom_loader', $config['custom_loader']);
         $container->setParameter('jm_ab.cache_time', $config['cache_time']);
 
-
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
-
-        if (class_exists("Sonata\AdminBundle\Admin\Admin")) {
-            $loader->load('sonata.xml');
-        }
     }
 }
