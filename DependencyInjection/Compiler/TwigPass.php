@@ -9,7 +9,7 @@ class TwigPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        if (true === $container->getParameter('jm_ab.custom_loader')) {
+        if ($container->getParameter('jm_ab.custom_loader')) {
             $loader = $container->getDefinition('twig.loader');
 
             $class = $loader->getClass();
