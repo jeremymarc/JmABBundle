@@ -53,7 +53,7 @@ class TemplateLoader implements \Twig_LoaderInterface
         return
             __CLASS__
             . '#' . $name
-            . '#' . $this->container->get('request')->get($this->container->getParameter('jm_ab.variation_parameter')) === null ? 'A' : 'B'
+            . '#' . ($this->container->get('request')->get($this->container->getParameter('jm_ab.variation_parameter')) === null ? 'A' : 'B')
             // force reload even if Twig has autoReload to false
             . '#' . $template->getUpdatedAt()->getTimestamp()
             ;
@@ -71,12 +71,10 @@ class TemplateLoader implements \Twig_LoaderInterface
      */
     public function isFresh($name, $time)
     {
-        return false;
+        $name = $this->parse($name);
+        $template = $this->getTemplate($name);
 
-        //$name = $this->parse($name);
-        //$template = $this->getTemplate($name);
-
-        //return $template->getUpdatedAt()->getTimestamp() <= $time;
+        return $template->getUpdatedAt()->getTimestamp() <= $time;
     }
 
     private function canHandle($name)
