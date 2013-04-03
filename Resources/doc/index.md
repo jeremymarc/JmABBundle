@@ -75,6 +75,10 @@ specified the experiment code in the Template).
 
 You can load a Template from a controller using TemplateManager :
 ```php
+$this->get('jm_ab.template_manager')->getTemplate('name', $vars);
+```
+or with custom_loader set to true :
+```php
 $this->get('jm_ab.template_manager')->renderTemplate('name') or ;
 $this->get('jm_ab.template_manager')->renderTemplate('template:name',
 $vars);
