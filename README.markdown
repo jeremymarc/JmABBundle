@@ -20,6 +20,7 @@ file in this bundle:
 
 Installation
 ------------
+[![Build Status](https://travis-ci.org/jeremymarc/JmABBundle.png?branch=master)](https://travis-ci.org/jeremymarc/JmABBundle)
 
 All the installation instructions are located in [documentation](https://github.com/jeremymarc/JmABBundle/blob/master/Resources/doc/index.md).
 
