@@ -3,7 +3,6 @@
 namespace Jm\ABBundle\Twig;
 
 use Jm\ABBundle\Entity\Template;
-use Jm\ABBundle\Entity\TemplateManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class TemplateLoader implements \Twig_LoaderInterface

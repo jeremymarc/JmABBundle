@@ -3,7 +3,6 @@
 namespace Jm\ABBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class TemplateManager
