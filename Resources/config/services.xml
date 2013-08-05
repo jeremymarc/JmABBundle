@@ -8,7 +8,7 @@
         <parameter key="jm_ab.variation_parameter">b</parameter>
         <parameter key="jm_ab.template.class">Jm\ABBundle\Entity\Template</parameter>
         <parameter key="jm_ab.templatemanager.class">Jm\ABBundle\Entity\TemplateManager</parameter>
-        <parameter key="jm_ab.loader.class">Twig_Loader_Chain</parameter>
+        <parameter key="jm_ab.twig.extension_ab.class">Jm\ABBundle\Twig\Extension\AbExtension</parameter>
     </parameters>
 
     <services>
@@ -19,14 +19,9 @@
             <argument>%jm_ab.cache_time%</argument>
         </service>
 
-        <service id="jm_ab.template_loader" class="Jm\ABBundle\Twig\TemplateLoader">
-            <argument type="service" id="service_container" />
-        </service>
-
-        <service id="jm_ab.twig_loader" class="%jm_ab.loader.class%">
-            <argument type="collection">
-                <argument type="service" id="jm_ab.template_loader" />
-            </argument>
+        <service id="jm_ab.twig.extension_ab" class="%jm_ab.twig.extension_ab.class%">
+            <argument type="service" id="jm_ab.template_manager" />
+            <tag name="twig.extension" />
         </service>
     </services>
 </container>

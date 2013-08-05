@@ -13,15 +13,15 @@ use Doctrine\ORM\NoResultException;
  */
 class TemplateRepository extends EntityRepository
 {
-    public function findTemplateByName($name, $cacheTime)
-    {
-        try {
-            $query = $this->createQueryBuilder('t')
-                ->where('t.name = :name')
-                ->setParameter('name', $name)
-                ->getQuery()
-                ->useResultCache(true, $cacheTime)
-                ;
+	public function findTemplateByName($name, $cacheTime)
+	{
+		try {
+			$query = $this->createQueryBuilder('t')
+				->where('t.name = :name')
+				->setParameter('name', $name)
+				->getQuery()
+				->useResultCache(true, $cacheTime)
+            ;
 
             $template = $query->getSingleResult();
         } catch (NoResultException $e) {
