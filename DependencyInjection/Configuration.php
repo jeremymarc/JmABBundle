@@ -22,11 +22,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode->children()
             ->scalarNode('variation')->defaultValue('b')->end()
-            ->booleanNode('custom_loader')
-                ->defaultTrue()
-            ->end()
             ->scalarNode('cache_time')->defaultValue(3600)->end()
-            ;
+        ;
 
         return $treeBuilder;
     }

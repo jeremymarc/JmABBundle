@@ -26,6 +26,11 @@ class TemplateManager
         $this->cache      = array();
     }
 
+    /**
+     * @param string $name
+     *
+     * @return Template|null
+     */
     public function getTemplate($name)
     {
         $name = trim($name);
@@ -33,25 +38,24 @@ class TemplateManager
             return $this->cache[$name];
         }
 
-        $template = $this->findTemplateByName($name);
+        $template = $this->repository->findTemplateByName($name, $this->cacheTime);
 
         return $this->cache[$name] = $template;
     }
 
-    public function renderTemplate($templateName, $vars = array())
-    {
-        if (0 !== strpos($templateName, 'template:')) {
-            $templateName = "template:$templateName";
-        }
-        return $this->container->get('twig')->render($templateName, $vars);
-    }
-
-    /*
-     * Do not call findTemplateByName directly
-     * Use getTemplate instead as it's adding a cache support
+    /**
+     * @param Template $template
+     * @param array $vars
+     *
+     * @return string
      */
-    protected function findTemplateByName($name)
+    public function renderTemplate(Template $template, $vars = array())
     {
-        return $this->repository->findTemplateByName($name, $this->cacheTime);
+        $vars['template'] = $template;
+
+        return new \Twig_Markup(
+            $this->container->get('twig')->render('JmABBundle::renderTemplate.html.twig', $vars),
+            'UTF-8'
+        );
     }
 }

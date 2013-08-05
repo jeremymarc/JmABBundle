@@ -7,7 +7,7 @@ can be used for AB Testing (or not).
 Features include:
 
 - Manage Template
-- Load Template from DB using Twig Loader
+- Load Template from DB
 - Use a custom variation parameter to switch between the 2 versions (A/B) of one template
 
 Documentation
